@@ -6,17 +6,43 @@ import { Footer } from '@/sections/Footer';
 import { LogoTicker } from '@/sections/LogoTicker';
 import { ProductShowcase } from '../sections/ProductShowcase';
 import { Testimonials } from '@/sections/Testimonials';
+import {
+  MainContent,
+  HeroSection,
+  FeaturesSection,
+  PricingSection,
+  TestimonialsSection,
+  CTASection,
+} from '@/components/SemanticWrapper';
+import { DynamicContent } from '@/components/DynamicContent';
 
 export default function Home() {
   return (
     <>
       <Header />
-      <Hero />
-      <LogoTicker />
-      <ProductShowcase />
-      <Pricing />
-      <Testimonials />
-      <CallToAction />
+      <MainContent>
+        <HeroSection>
+          <Hero />
+        </HeroSection>
+
+        <LogoTicker />
+
+        <FeaturesSection>
+          <ProductShowcase />
+        </FeaturesSection>
+
+        <PricingSection>
+          <Pricing />
+        </PricingSection>
+
+        <TestimonialsSection>
+          <Testimonials />
+        </TestimonialsSection>
+
+        <CTASection>
+          <CallToAction />
+        </CTASection>
+      </MainContent>
       <Footer />
     </>
   );

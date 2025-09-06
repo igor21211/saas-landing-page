@@ -4,7 +4,11 @@ import { useSEO } from '@/hooks/useSEO';
 
 // Компонент с динамическими мета-тегами на основе состояния
 export const DynamicContent = () => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<{
+    name: string;
+    taskCount: number;
+    plan: string;
+  } | null>(null);
   const [product, setProduct] = useState({
     name: 'Light SaaS Free',
     price: '0',

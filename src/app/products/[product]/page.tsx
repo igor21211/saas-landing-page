@@ -1,5 +1,6 @@
-import { generateMetadata } from '@/utils/generateMetadata';
+import { generateMetadata as generateSEOMetadata } from '@/utils/generateMetadata';
 import { StructuredData } from '@/components/StructuredData';
+import Image from 'next/image';
 
 // Динамические метаданные для продуктов
 export async function generateMetadata({
@@ -19,7 +20,7 @@ export async function generateMetadata({
     image: '/products/light-saas-pro.jpg',
   };
 
-  return generateMetadata({
+  return generateSEOMetadata({
     title: product.name,
     description: product.description,
     keywords: [
@@ -78,9 +79,11 @@ export default function ProductPage({
           </div>
 
           <div>
-            <img
+            <Image
               src="/products/light-saas-pro.jpg"
               alt="Light SaaS Pro Dashboard"
+              width={600}
+              height={400}
               className="w-full rounded-lg"
             />
           </div>

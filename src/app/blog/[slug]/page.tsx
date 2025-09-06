@@ -1,4 +1,4 @@
-import { generateMetadata } from '@/utils/generateMetadata';
+import { generateMetadata as generateSEOMetadata } from '@/utils/generateMetadata';
 import { StructuredData } from '@/components/StructuredData';
 
 // Динамические метаданные для блог-постов
@@ -20,7 +20,7 @@ export async function generateMetadata({
     featuredImage: '/blog/task-management-tips.jpg',
   };
 
-  return generateMetadata({
+  return generateSEOMetadata({
     title: post.title,
     description: post.excerpt,
     keywords: post.tags,

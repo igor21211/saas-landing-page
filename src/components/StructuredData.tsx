@@ -1,5 +1,11 @@
 interface StructuredDataProps {
-  type?: 'software' | 'organization' | 'faq' | 'breadcrumb';
+  type?:
+    | 'software'
+    | 'organization'
+    | 'faq'
+    | 'breadcrumb'
+    | 'article'
+    | 'product';
   data?: any;
 }
 
@@ -95,6 +101,49 @@ export const StructuredData = ({
             },
           ],
         };
+
+      case 'article':
+        return (
+          data || {
+            '@context': 'https://schema.org',
+            '@type': 'Article',
+            headline: 'Light SaaS Blog Post',
+            author: {
+              '@type': 'Person',
+              name: 'Light SaaS Team',
+            },
+            publisher: {
+              '@type': 'Organization',
+              name: 'Light SaaS',
+              logo: {
+                '@type': 'ImageObject',
+                url: 'https://light-saas.com/logo.png',
+              },
+            },
+            datePublished: new Date().toISOString(),
+            dateModified: new Date().toISOString(),
+          }
+        );
+
+      case 'product':
+        return (
+          data || {
+            '@context': 'https://schema.org',
+            '@type': 'Product',
+            name: 'Light SaaS',
+            description: 'AI-powered productivity platform',
+            brand: {
+              '@type': 'Brand',
+              name: 'Light SaaS',
+            },
+            offers: {
+              '@type': 'Offer',
+              price: '0',
+              priceCurrency: 'USD',
+              availability: 'https://schema.org/InStock',
+            },
+          }
+        );
 
       default:
         return data || {};

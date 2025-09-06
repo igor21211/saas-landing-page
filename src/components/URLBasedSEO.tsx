@@ -1,5 +1,6 @@
 'use client';
 import { usePathname, useSearchParams } from 'next/navigation';
+import { Suspense } from 'react';
 import { DynamicSEO } from './DynamicSEO';
 
 // Конфигурация мета-тегов для разных путей
@@ -15,6 +16,7 @@ const seoConfig = {
       'team collaboration',
     ],
     ogImage: '/home-og.jpg',
+    articleType: 'website' as const,
   },
   '/pricing': {
     title: 'Pricing Plans - Choose Your Perfect Plan',
@@ -22,6 +24,7 @@ const seoConfig = {
       'Compare our pricing plans and choose the perfect one for your team. Free forever plan available with no credit card required.',
     keywords: ['pricing', 'plans', 'subscription', 'free trial'],
     ogImage: '/pricing-og.jpg',
+    articleType: 'website' as const,
   },
   '/features': {
     title: 'Features - Powerful Tools for Your Team',
@@ -34,6 +37,7 @@ const seoConfig = {
       'workflow automation',
     ],
     ogImage: '/features-og.jpg',
+    articleType: 'website' as const,
   },
   '/about': {
     title: 'About Us - Meet the Light SaaS Team',
@@ -41,6 +45,7 @@ const seoConfig = {
       'Learn about our mission to revolutionize team productivity and meet the passionate team behind Light SaaS.',
     keywords: ['about us', 'team', 'mission', 'company'],
     ogImage: '/about-og.jpg',
+    articleType: 'website' as const,
   },
   '/help': {
     title: 'Help Center - Get Support & Learn',
@@ -48,6 +53,7 @@ const seoConfig = {
       'Find answers to common questions, learn how to use Light SaaS effectively, and get the support you need.',
     keywords: ['help', 'support', 'documentation', 'tutorials'],
     ogImage: '/help-og.jpg',
+    articleType: 'website' as const,
   },
   '/blog': {
     title: 'Blog - Productivity Tips & Insights',
@@ -55,6 +61,7 @@ const seoConfig = {
       'Read our latest articles on productivity, task management, and team collaboration to boost your workflow.',
     keywords: ['blog', 'productivity tips', 'insights', 'articles'],
     ogImage: '/blog-og.jpg',
+    articleType: 'website' as const,
   },
 };
 
@@ -107,7 +114,7 @@ const getSEOForPath = (pathname: string, searchParams?: URLSearchParams) => {
   };
 };
 
-export const URLBasedSEO = () => {
+const URLBasedSEOInner = () => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
@@ -123,6 +130,14 @@ export const URLBasedSEO = () => {
       twitterImage={seoData.ogImage}
       articleType={seoData.articleType || 'website'}
     />
+  );
+};
+
+export const URLBasedSEO = () => {
+  return (
+    <Suspense fallback={null}>
+      <URLBasedSEOInner />
+    </Suspense>
   );
 };
 
@@ -196,7 +211,13 @@ export const DynamicURLSEO = ({
       publishedTime={seoData.publishedTime}
       price={seoData.price}
       currency={seoData.currency}
-      availability={seoData.availability}
+      availability={
+        seoData.availability as
+          | 'in stock'
+          | 'out of stock'
+          | 'preorder'
+          | undefined
+      }
     />
   );
 };
